@@ -1,0 +1,25 @@
+@Override
+    public void start(Stage primaryStage) throws Exception {
+
+        int rowCount = 100;
+        int columnCount = 100;
+        GridBase grid = new GridBase(rowCount, columnCount);
+
+        ObservableList<ObservableList<SpreadsheetCell>> rows = FXCollections.observableArrayList();
+        for (int row = 0; row < grid.getRowCount(); ++row) {
+            final ObservableList<SpreadsheetCell> list = FXCollections.observableArrayList();
+            for (int column = 0; column < grid.getColumnCount(); ++column) {
+                list.add(SpreadsheetCellType.STRING.createCell(row, column, 1, 1, "value"));
+            }
+            rows.add(list);
+        }
+        grid.setRows(rows);
+
+        SpreadsheetView spv = new SpreadsheetView(grid);
+        Pane pane = new Pane(spv);
+//        Scene scene = new Scene(FXMLLoader.load(getClass().getResource("main.fxml")));
+        Scene scene = new Scene(pane);
+        primaryStage.setScene(scene);
+        primaryStage.show();
+
+    }
